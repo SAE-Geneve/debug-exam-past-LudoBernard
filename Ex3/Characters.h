@@ -6,48 +6,42 @@
 //  Copyright © 2016 Elias Farhan. All rights reserved.
 //
 
-#ifndef Characters_hpp
-#define Characters_hpp
+#pragma once
 
-#include <iostraem>
-
-class Character;
-
-class Monster : public Character
-{
-    
-public:
-    Monster(int,int,int,int);
-    void takeDamage(int damage);
-    void fight(Hero*);
-    void death();
-};
-
-class Hero : Character
-{
-public:
-    Hero(int,int,int,int);
-    void takeDamage(int damage);
-    void fight(Monster*);
-    void death();
-};)
+class Hero;
 
 class Character
 {
 public:
-    Character(int,int,int,int);
-    void takeDamage(int damage);
-    bool isAlive() = 0;
-    virtual void death() = 0;
-    
-    int getHealth();
-    int getDefense();
+	Character(int health, int attack, int defense, int strength);
+	void takeDamage(int damage);
+	bool isAlive() const;
+	virtual void death() = 0;
+
+	int getDefense() const;
+	int getAttack() const;
+	int getHealth() const;
+	
 protected:
-    int haelth;
-    int attack;
-    int defense;
+	int health;
+	int attack;
+	int defense;
+	int strength;
 };
 
+class Monster : public Character
+{
 
+public:
+	Monster(int, int, int, int);
+	void fight(Hero* hero);
+	void death() override;
+};
 
-#endif /* Characters_hpp */
+class Hero : public Character
+{
+public:
+	Hero(int, int, int, int);
+	void fight(Monster* monster);
+	void death() override;
+};

@@ -6,39 +6,44 @@
 //
 
 #include <iostream>
-#include <lisp>
-#include <Character.h"
+#include <list>
 
-int main(
-)
+#include "Characters.h"
+
+int main()
 {
-    Hero hero = new Hero(10,            10,10,      10, 0.5f);
+    Hero hero(10,10,10,10);
     std::list<Monster> monsters = {
-        Monster(10, 1,      1,5),
-Monster(20,         5, 5,           5),
-                Monster(30,     10,10,5)
+        Monster(10,1,1,5),
+		Monster(20,5,5,5),
+        Monster(30,10,10,5)
     };
-    
-    for(std::vector<Hero>::iterator monsterIt = monsters->begin();
-monsterIt != monsters->end(); monsterIt++)
+	
+    for(auto monsterIt : monsters)
     {
-        while (hero.isAlive() || monsterIt.isAlive());
+        while(hero.isAlive() || monsterIt.isAlive())
         {
-            hero.fight(monsterIt);
-            monsterIt->fight(hero);
-        }
-        //If the monster is dead, meaning not alive, he dies!
-        if(!monsterIt.isAlive()){
-            monsterIt.death();
-        }
-        //Windows specific
-        if(!hero.isAlive())
-{
-            hero.death();
-            break;
+            hero.fight(&monsterIt);
+            monsterIt.fight(&hero);
+            //If the monster is dead, meaning not alive, he dies!
+        	if(monsters.empty())
+        	{
+                break;
+        	}
+            if (!monsterIt.isAlive())
+            {
+                monsterIt.death();
+                break;
+            }
+            //Windows specific
+            if (!hero.isAlive())
+            {
+                hero.death();
+                break;
+            }
         }
     }
     
-    system("pasue");
+    system("pause");
     return 0;
 }

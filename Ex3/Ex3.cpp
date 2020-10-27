@@ -26,10 +26,6 @@ int main()
             hero.fight(&monsterIt);
             monsterIt.fight(&hero);
             //If the monster is dead, meaning not alive, he dies!
-        	if(monsters.empty())
-        	{
-                break;
-        	}
             if (!monsterIt.isAlive())
             {
                 monsterIt.death();
